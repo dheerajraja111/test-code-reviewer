@@ -5,8 +5,8 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 async function run() {
   try {
     // Fetching Secrets and Tokens
-    const githubToken = core.getInput('GITHUB_TOKEN');
-    const geminiKey = core.getInput('GEMINI_API_KEY');
+    const githubToken = process.env.GITHUB_TOKEN;
+    const geminiKey = process.env.GEMINI_API_KEY;
 
     const octokit = github.getOctokit(githubToken);
     const context = github.context;
