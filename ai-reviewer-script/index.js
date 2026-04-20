@@ -48,7 +48,7 @@ async function run() {
     const prompt = `
       You are a strict and senior enterprise software engineer. 
       Review the following git diff of a pull request.
-      Look for: Security vulnerabilities, performance bottlenecks, logic errors, and bad coding practices.
+      Look for: Security vulnerabilities, performance bottlenecks, logic errors, Accessibility (a11y) issues and bad coding practices.
       Do not comment on minor stylistic issues.
       Provide your feedback in a clean Markdown format with actionable suggestions.      
       Code Diff:
