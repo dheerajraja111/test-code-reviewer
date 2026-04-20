@@ -71,3 +71,5 @@ async function run() {
     core.setFailed(`Action failed: ${error.message}`);
   }
 }
+
+run();
