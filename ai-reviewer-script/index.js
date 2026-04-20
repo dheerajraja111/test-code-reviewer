@@ -1,12 +1,12 @@
-const core = require('@actions/core');
-const github = require('@actions/github');
-const { GoogleGenerativeAI } = require('@google/generative-ai');
+import * as core from '@actions/core';
+import * as github from '@actions/github';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 async function run() {
   try {
     // Fetching Secrets and Tokens
-    const githubToken = core.getInput('GITHUB_TOKEN');
-    const geminiKey = core.getInput('GEMINI_API_KEY');
+    const githubToken = process.env.GITHUB_TOKEN;
+    const geminiKey = process.env.GEMINI_API_KEY;
 
     const octokit = github.getOctokit(githubToken);
     const context = github.context;
@@ -43,12 +43,12 @@ async function run() {
 
     // Setting up Gemini
     const genAI = new GoogleGenerativeAI(geminiKey);
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-pro' });
 
     const prompt = `
       You are a strict and senior enterprise software engineer. 
       Review the following git diff of a pull request.
-      Look for: Security vulnerabilities, performance bottlenecks, logic errors, and bad coding practices.
+      Look for: Security vulnerabilities, performance bottlenecks, logic errors, Accessibility (a11y) issues and bad coding practices.
       Do not comment on minor stylistic issues.
       Provide your feedback in a clean Markdown format with actionable suggestions.      
       Code Diff:
@@ -71,3 +71,5 @@ async function run() {
     core.setFailed(`Action failed: ${error.message}`);
   }
 }
+
+run();
